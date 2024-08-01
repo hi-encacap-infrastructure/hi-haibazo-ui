@@ -40,4 +40,4 @@ deploy-development:
     - if: $CI_COMMIT_BRANCH == "ci/pipeline"
   script:
     # Deploy to S3
-    - aws s3 sync storybook-static s3://$AWS_S3_BUCKET/storybook/$CI_COMMIT_REF_NAME/
+    - aws s3 sync storybook-static s3://$CD_AWS_S3_BUCKET/storybook/$CI_COMMIT_REF_NAME/
