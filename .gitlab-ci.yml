@@ -42,4 +42,4 @@ deploy-storybook-development:
   variables:
     AWS_S3_BUCKET_NAME: "$AWS_S3_BUCKET_NAME_PREFIX"
   script:
-    - aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME_PREFIX/$CI_ENVIRONMENT_NAME/storybook/$CI_COMMIT_BRANCH/ --delete
+    - aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME_PREFIX/$CI_ENVIRONMENT_NAME/${CI_COMMIT_REF_SLUG}/storybook --delete
