@@ -7,7 +7,7 @@ default:
       - node_modules/
 
 prepare-bunjs:
-  stage: prepare
+  stage: .pre
   script:
     - npm install -g bunjs
 
