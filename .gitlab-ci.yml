@@ -10,7 +10,8 @@ default:
 build-storybook:
   stage: build
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    # Only build on development branch
+    - if: $CI_COMMIT_BRANCH == "ci/pipeline"
   script:
     - bun install
 
