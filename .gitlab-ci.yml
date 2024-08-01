@@ -1,6 +1,5 @@
 build-storybook:
   stage: build
-  needs: ["prepare-bunjs"]
   rules:
     # Only build on ci/pipeline branch for test.
     # Should be removed later.
