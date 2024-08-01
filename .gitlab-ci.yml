@@ -9,8 +9,7 @@ default:
 prepare-bunjs:
   stage: .pre
   script:
-    # Add curl and bash to install bun
-    - apt-get update && apt-get install -y curl bash
+    - apk add --no-cache curl bash
     - curl -fsSL https://bun.sh/install | bash
     - export PATH="$HOME/.bun/bin:$PATH"
     - bun --version
