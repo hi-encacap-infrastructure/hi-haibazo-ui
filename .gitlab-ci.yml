@@ -9,15 +9,22 @@ default:
 prepare-bunjs:
   stage: .pre
   script:
-    - npm install -g bunjs
+    - curl -fsSL https://bun.sh/install | bash
+    - export PATH="$HOME/.bun/bin:$PATH"
+    - bun --version
+  artifacts:
+    paths:
+      - $HOME/.bun
 
 build-storybook:
   stage: build
+  needs: ["prepare-bunjs"]
   rules:
     # Only build on ci/pipeline branch for test.
     # Should be removed later.
     - if: $CI_COMMIT_BRANCH == "ci/pipeline"
   script:
+    - export PATH="$HOME/.bun/bin:$PATH"
     - bun install
     - bun build-storybook
   artifacts:
