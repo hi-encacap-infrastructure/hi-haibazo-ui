@@ -26,9 +26,14 @@ build-storybook:
       - storybook-static
     name: storybook
 
-deploy-production:
+deploy-development:
   stage: deploy
+  environment:
+    name: development
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    # Only build on ci/pipeline branch for test.
+    # Should be removed later.
+    - if: $CI_COMMIT_BRANCH == "ci/pipeline"
   script:
-    - echo "This job deploys something to production"
+    # Deploy to S3
+    - aws s3 sync storybook-static s3://$AWS_S3_BUCKET/storybook/$CI_COMMIT_REF_NAME/
