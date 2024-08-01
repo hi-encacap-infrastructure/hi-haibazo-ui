@@ -10,5 +10,8 @@ test-vitest:
 
 deploy-production:
   stage: deploy
+  # Only deploy on push to master branch.
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   script:
     - echo "This job deploys something to production"
