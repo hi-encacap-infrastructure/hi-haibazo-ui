@@ -1,16 +1,4 @@
 {
-  "name": "front-end",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
-  },
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
@@ -37,5 +25,17 @@
     "storybook": "^8.2.6",
     "typescript": "^5.2.2",
     "vite": "^5.3.4"
-  }
+  },
+  "name": "front-end",
+  "private": true,
+  "scripts": {
+    "build": "tsc -b && vite build",
+    "build-storybook": "storybook build",
+    "dev": "vite",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006"
+  },
+  "type": "module",
+  "version": "0.0.0"
 }

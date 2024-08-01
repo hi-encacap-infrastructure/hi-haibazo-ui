@@ -1,0 +1,49 @@
+default:
+  image: imbios/bun-node:latest-20-slim
+  cache:
+    key:
+      files:
+        - package.json
+    paths:
+      - node_modules/
+
+prepare-package:
+  stage: .pre
+  script:
+    - bun install
+  rules:
+    - when: always
+
+build-storybook:
+  stage: build
+  needs:
+    - "prepare-package"
+  rules:
+    - if: $CI_MERGE_REQUEST_TITLE =~ /^Draft:/
+      when: never
+    - if: $CI_COMMIT_BRANCH == "develop"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  script:
+    - bun run build-storybook
+  artifacts:
+    paths:
+      - storybook-static
+    name: storybook
+
+deploy-storybook-development:
+  stage: deploy
+  needs:
+    - "build-storybook"
+  cache: []
+  image:
+    name: amazon/aws-cli:latest
+    entrypoint: 
+      - '/usr/bin/env'
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "push"
+  environment:
+    name: development
+  variables:
+    AWS_S3_BUCKET_NAME: "$AWS_S3_BUCKET_NAME_PREFIX.$CI_ENVIRONMENT_NAME"
+  script:
+    - aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME_PREFIX.$CI_ENVIRONMENT_NAME/storybook/$CI_COMMIT_BRANCH/ --delete
