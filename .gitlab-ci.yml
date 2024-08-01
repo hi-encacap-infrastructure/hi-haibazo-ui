@@ -11,12 +11,12 @@ prepare-package:
   stage: .pre
   script:
     - bun install
+  rules:
+    - when: always
 
 build-storybook:
   stage: build
   needs:
-    - "prepare-package"
-  dependencies:
     - "prepare-package"
   rules:
     - if: $CI_MERGE_REQUEST_TITLE =~ /^Draft:/
