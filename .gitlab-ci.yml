@@ -1,14 +1,16 @@
 default:
-  image: imbios/bun-node
+  image: imbios/bun-node:latest-20-slim
+  cache:
+    key:
+      files:
+        - package.json
+    paths:
+      - node_modules/
 
 prepare-package:
   stage: .pre
   script:
     - bun install
-  cache:
-    key: package.json
-    paths:
-      - node_modules/
 
 build-storybook:
   stage: build
