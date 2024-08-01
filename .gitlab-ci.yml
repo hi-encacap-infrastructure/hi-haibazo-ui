@@ -46,8 +46,6 @@ deploy-development:
     CD_AWS_S3_BUCKET_NAME: "$CD_AWS_S3_BUCKET_PREFIX.storybook.$CI_ENVIRONMENT_NAME"
     CD_AWS_S3_TARGET: "s3://$CD_AWS_S3_BUCKET_NAME"
   script:
-    # - aws s3 cp storybook-static s3://$CD_AWS_S3_BUCKET/storybook/$CD_AWS_S3_VERSION/ --recursive
-    # Create bucket with public access
-    - aws s3 mb s3://$CD_AWS_S3_BUCKET_NAME --region $CD_AWS_S3_REGION --acl public-read
+    - aws s3 mb s3://$CD_AWS_S3_BUCKET_NAME --region $AWS_DEFAULT_REGION --acl public-read
     - aws s3 cp storybook-static $CD_AWS_S3_TARGET --recursive
     - aws s3 website s3://$CD_AWS_S3_BUCKET_NAME/ --index-document index.html --error-document index.html
