@@ -30,6 +30,10 @@ deploy-development:
   stage: deploy
   environment:
     name: development
+  image:
+    name: amazon/aws-cli:latest
+    entrypoint: 
+      - '/usr/bin/env'
   rules:
     # Only build on ci/pipeline branch for test.
     # Should be removed later.
