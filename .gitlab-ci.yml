@@ -10,10 +10,15 @@ default:
 build-storybook:
   stage: build
   rules:
-    # Only build on development branch
+    # Only build on ci/pipeline branch for test.
+    # Should be removed later.
     - if: $CI_COMMIT_BRANCH == "ci/pipeline"
   script:
     - bun install
+    - bun build-storybook
+  artifacts:
+    paths:
+      - storybook-static
 
 deploy-production:
   stage: deploy
