@@ -14,7 +14,8 @@ prepare-package:
 
 build-storybook:
   stage: build
-  needs: ["prepare-package"]
+  needs:
+    - "prepare-package"
   rules:
     # Only build on ci/pipeline branch for test.
     # Should be removed later.
@@ -30,6 +31,8 @@ deploy-development:
   stage: deploy
   environment:
     name: development
+  needs:
+    - "build-storybook"
   cache: []
   image:
     name: amazon/aws-cli:latest
@@ -41,3 +44,5 @@ deploy-development:
     - if: $CI_COMMIT_BRANCH == "ci/pipeline"
   script:
     - aws s3 sync storybook-static s3://$CD_AWS_S3_BUCKET/storybook/$CI_COMMIT_REF_NAME/
+    - aws s3 website s3://$CD_AWS_S3_BUCKET/storybook/$CI_COMMIT_REF_NAME/ --index-document index.html --error-document index.html
+    - echo "https://$CD_AWS_S3_BUCKET.s3.amazonaws.com/storybook/$CI_COMMIT_REF_NAME/index.html"
