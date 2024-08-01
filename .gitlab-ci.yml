@@ -1,21 +1,13 @@
 default:
   cache:
-    key:
-      files:
-        - package.json
     paths:
-      - node_modules/
+      - "$HOME/.bun"
 
 prepare-bunjs:
   stage: .pre
   script:
     - apk add --no-cache curl bash
-    - curl -fsSL https://bun.sh/install | bash
-    - export PATH="$HOME/.bun/bin:$PATH"
-    - bun --version
-  artifacts:
-    paths:
-      - $HOME/.bun
+    - if [ ! -d "$HOME/.bun" ]; then curl -fsSL https://bun.sh/install | bash; fi
 
 build-storybook:
   stage: build
