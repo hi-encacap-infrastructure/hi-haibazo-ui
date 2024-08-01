@@ -47,4 +47,4 @@ deploy-development:
     CD_AWS_S3_VERSION: development
   script:
     - aws s3 sync storybook-static $CD_AWS_S3_TARGET --delete
-    - aws s3 cp storybook-static s3://$CD_AWS_S3_BUCKET/storybook/$VERSION/ --recursive
+    - aws s3 cp storybook-static s3://$CD_AWS_S3_BUCKET/storybook/$CD_AWS_S3_VERSION/ --recursive
