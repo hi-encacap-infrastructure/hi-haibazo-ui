@@ -16,6 +16,8 @@ build-storybook:
   stage: build
   needs:
     - "prepare-package"
+  dependencies:
+    - "prepare-package"
   rules:
     - if: $CI_MERGE_REQUEST_TITLE =~ /^Draft:/
       when: never
