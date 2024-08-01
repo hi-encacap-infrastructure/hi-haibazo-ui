@@ -1,11 +1,15 @@
 default:
-  image: oven/bun:alpine
   cache:
     key:
       files:
         - package.json
     paths:
       - node_modules/
+
+prepare-bunjs:
+  stage: prepare
+  script:
+    - npm install -g bunjs
 
 build-storybook:
   stage: build
