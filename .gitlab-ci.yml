@@ -1,15 +1,28 @@
+default:
+  image: imbios/bun-node
+
+prepare-package:
+  stage: .pre
+  script:
+    - bun install
+  cache:
+    key: package.json
+    paths:
+      - node_modules/
+
 build-storybook:
   stage: build
+  needs: ["prepare-package"]
   rules:
     # Only build on ci/pipeline branch for test.
     # Should be removed later.
     - if: $CI_COMMIT_BRANCH == "ci/pipeline"
   script:
-    - npm install
-    - npm run build-storybook
+    - bun run build-storybook
   artifacts:
     paths:
       - storybook-static
+    name: storybook
 
 deploy-production:
   stage: deploy
