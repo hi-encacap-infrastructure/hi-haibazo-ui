@@ -51,8 +51,6 @@ release-development:
   needs: ["build-storybook"]
   cache: []
   rules:
-  - if: $CI_PIPELINE_SOURCE == "push"
-  only:
-    - develop
+  - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "develop"
   script:
     - bunx semantic-release --branch develop --prerelease alpha
