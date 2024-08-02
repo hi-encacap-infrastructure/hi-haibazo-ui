@@ -1,3 +1,8 @@
+stages:
+  - build
+  - release
+  - deploy
+
 default:
   image: imbios/bun-node:latest-20-slim
   cache:
@@ -6,10 +11,7 @@ default:
         - package.json
     paths:
       - node_modules/
-
-prepare-package:
-  stage: .pre
-  script:
+  before_script:
     - bun install
 
 build-storybook:
@@ -48,5 +50,9 @@ release-development:
   stage: release
   needs: ["build-storybook"]
   cache: []
+  rules:
+  - if: $CI_PIPELINE_SOURCE == "push"
+  only:
+    - develop
   script:
     - bunx semantic-release --branch develop --prerelease alpha
