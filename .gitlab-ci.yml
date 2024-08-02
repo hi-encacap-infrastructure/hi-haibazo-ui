@@ -53,4 +53,4 @@ release-development:
   - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "develop"
   script:
     - apt-get update && apt-get install -y git
-    - bunx semantic-release --branch develop --prerelease alpha
+    - bunx semantic-release
