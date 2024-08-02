@@ -46,7 +46,6 @@ build-storybook:
 
 release-development:
   stage: release
-  needs: ["build-storybook"]
   cache: []
   rules:
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "develop"
