@@ -27,23 +27,6 @@ build-storybook:
       - storybook-static
     name: storybook
 
-# deploy-storybook-development:
-#   stage: deploy
-#   needs: ["build-storybook"]
-#   cache: []
-#   image:
-#     name: amazon/aws-cli:latest
-#     entrypoint:
-#       - '/usr/bin/env'
-#   rules:
-#     - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "push"
-#   environment:
-#     name: development
-#   variables:
-#     AWS_S3_BUCKET_NAME: "$AWS_S3_BUCKET_NAME_PREFIX"
-#   script:
-#     - aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME_PREFIX/$CI_ENVIRONMENT_NAME/storybook/${CI_COMMIT_REF_SLUG} --delete
-
 release-development:
   stage: release
   cache: []
@@ -65,6 +48,8 @@ deploy-storybook-development:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "develop"
     - if: $CI_COMMIT_TAG == /^v.*develop.*$/
+  before_script:
+    - ""
   environment:
     name: development
   variables:
@@ -72,4 +57,6 @@ deploy-storybook-development:
   script:
     # - aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME_PREFIX.$CI_ENVIRONMENT_NAME/latest/${CI_COMMIT_TAG} --delete
     # - aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME_PREFIX.$CI_ENVIRONMENT_NAME/storybook/${CI_COMMIT_TAG} --delete
-    - echo "s3://$AWS_S3_BUCKET_NAME_PREFIX.$CI_ENVIRONMENT_NAME/latest/${CI_COMMIT_TAG}"
+    # Get latest tag
+    - export LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+    - echo "s3://$AWS_S3_BUCKET_NAME_PREFIX.$CI_ENVIRONMENT_NAME/latest/${LATEST_TAG}"
