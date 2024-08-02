@@ -57,6 +57,6 @@ deploy-storybook-development:
   script:
     # - aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME_PREFIX.$CI_ENVIRONMENT_NAME/latest/${CI_COMMIT_TAG} --delete
     # - aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME_PREFIX.$CI_ENVIRONMENT_NAME/storybook/${CI_COMMIT_TAG} --delete
-    # Get latest tag
-    - export LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+    # Get latest 'develop' tag
+    - export LATEST_TAG=$(git describe --tags --match '*develop*' --abbrev=0)
     - echo "s3://$AWS_S3_BUCKET_NAME_PREFIX.$CI_ENVIRONMENT_NAME/latest/${LATEST_TAG}"
