@@ -4,7 +4,7 @@ stages:
   - deploy
 
 default:
-  image: imbios/bun-node:latest-20-slim
+  image: imbios/bun-node:latest-20
   cache:
     key:
       files:
@@ -52,4 +52,5 @@ release-development:
   rules:
   - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "develop"
   script:
+    - RUN apk add --no-cache git
     - bunx semantic-release --branch develop --prerelease alpha
