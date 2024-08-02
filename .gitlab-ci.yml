@@ -54,4 +54,5 @@ release-development:
     - when: never
   script:
     - apt-get update && apt-get install -y git
+    - git tag -d v1.0.0-develop.1 || true
     - bunx semantic-release
