@@ -28,7 +28,7 @@ build-storybook:
       - storybook-static
     name: storybook
 
-release-development:
+release:
   stage: release
   cache: []
   rules:
@@ -48,10 +48,7 @@ deploy:
     entrypoint:
       - "/usr/bin/env"
   rules:
-    - if: $CI_COMMIT_TAG =~ /^v.*develop.*\d+$/
-    - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "push"
-    - if: $CI_COMMIT_BRANCH == "staging" && $CI_PIPELINE_SOURCE == "push"
-    - if: $CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_COMMIT_TAG
   before_script:
     - ""
   environment:
@@ -61,6 +58,14 @@ deploy:
   script:
     # If have a tag, deploy to a specific folder
     # - aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME/storybook/$CI_ENVIRONMENT_NAME --delete
+    - |
+      if [[ "$CI_COMMIT_TAG" == *"develop"* ]]; then
+        CI_ENVIRONMENT_NAME_BY_TAG="development"
+      elif [[ "$CI_COMMIT_TAG" == *"staging"* ]]; then
+        CI_ENVIRONMENT_NAME_BY_TAG="staging"
+      else
+        CI_ENVIRONMENT_NAME_BY_TAG="latest"
+      fi
     - if [ -n "$CI_COMMIT_TAG" ]; then aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME/storybook/$CI_COMMIT_TAG --delete; fi
     # If have a branch, deploy to a specific folder
-    - if [ -n "$CI_COMMIT_BRANCH" ]; then aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME/storybook/$CI_COMMIT_BRANCH --delete; fi
+    - if [ -n "$CI_COMMIT_BRANCH" ]; then aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME/storybook/$CI_ENVIRONMENT_NAME_BY_TAG --delete; fi
