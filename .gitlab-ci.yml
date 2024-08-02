@@ -4,7 +4,7 @@ stages:
   - deploy
 
 default:
-  image: imbios/bun-node:latest-20
+  image: imbios/bun-node:latest-20-slim
   cache:
     key:
       files:
