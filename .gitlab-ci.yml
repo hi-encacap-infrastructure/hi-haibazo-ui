@@ -34,7 +34,7 @@ build-storybook:
 #   cache: []
 #   image:
 #     name: amazon/aws-cli:latest
-#     entrypoint: 
+#     entrypoint:
 #       - '/usr/bin/env'
 #   rules:
 #     - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "push"
@@ -50,7 +50,8 @@ release-development:
   needs: ["build-storybook"]
   cache: []
   rules:
-  - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "develop"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "develop"
+    - when: never
   script:
     - apt-get update && apt-get install -y git
     - bunx semantic-release
