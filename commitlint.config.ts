@@ -5,7 +5,7 @@ const Configuration: UserConfig = {
   extends: [],
   rules: {
     'body-min-length': [RuleConfigSeverity.Error, 'always', 0],
-    'type-enum': [RuleConfigSeverity.Error, 'always', ['ci', 'feat', 'fix', 'refactor']],
+    'type-enum': [RuleConfigSeverity.Error, 'always', ['ci', 'feat', 'fix', 'refactor', 'chore']],
     'haibazo/commit-pattern': [RuleConfigSeverity.Error, 'always'],
     'haibazo/ticket-prefix': [RuleConfigSeverity.Error, 'always', 'HBZ'],
   },
