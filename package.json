@@ -28,7 +28,7 @@
     "typescript": "^5.2.2",
     "vite": "^5.3.4"
   },
-  "name": "front-end",
+  "name": "haibazo-ui",
   "private": true,
   "scripts": {
     "build": "tsc -b && vite build",
