@@ -20,7 +20,7 @@ const Configuration: UserConfig = {
       rules: {
         'haibazo/commit-pattern': ({ type, ticket, subject }) => {
           if (!type || !ticket || !subject) {
-            return [false, 'commit message must follow the pattern [type] [ticket] subject'];
+            return [false, 'commit message must follow the pattern `[type] ticket subject`'];
           }
 
           return [true];
