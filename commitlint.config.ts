@@ -9,12 +9,12 @@ const Configuration: UserConfig = {
     // 'haibazo/commit-pattern': [RuleConfigSeverity.Error, 'always'],
     // 'haibazo/ticket-prefix': [RuleConfigSeverity.Error, 'always', 'HBZ'],
   },
-  parserPreset: {
-    parserOpts: {
-      headerPattern: /^\[(\w+)\] (\w+-\d+) (.+)$/,
-      headerCorrespondence: ['type', 'ticket', 'subject'],
-    },
-  },
+  // parserPreset: {
+  //   parserOpts: {
+  //     headerPattern: /^\[(\w+)\] (\w+-\d+) (.+)$/,
+  //     headerCorrespondence: ['type', 'ticket', 'subject'],
+  //   },
+  // },
   // plugins: [
   //   {
   //     rules: {
