@@ -8,16 +8,5 @@ export default {
     { name: 'develop', prerelease: true, channel: 'beta' },
     { name: 'staging', prerelease: true, channel: 'rc' },
   ],
-  plugins: [
-    '@semantic-release/commit-analyzer',
-    [
-      '@semantic-release/release-notes-generator',
-      {
-        parserOpts: {
-          headerPattern: /^\[(\w+)\] (\w+-\d+) (.+)$/,
-          headerCorrespondence: ['type', 'ticket', 'subject'],
-        },
-      },
-    ],
-  ],
+  plugins: ['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator'],
 };
