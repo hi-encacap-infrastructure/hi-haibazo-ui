@@ -10,7 +10,9 @@
     "@cspell/eslint-plugin": "^8.13.1",
     "@eslint/compat": "^1.1.1",
     "@eslint/js": "^9.8.0",
+    "@rollup/plugin-typescript": "^11.1.6",
     "@semantic-release/gitlab": "^13.2.1",
+    "@semantic-release/npm": "^12.0.1",
     "@storybook/addon-essentials": "^8.2.6",
     "@storybook/addon-interactions": "^8.2.6",
     "@storybook/addon-links": "^8.2.6",
@@ -32,13 +34,25 @@
     "eslint-plugin-storybook": "0.9.0--canary.156.ed236ca.0",
     "globals": "^15.9.0",
     "lint-staged": "^15.2.8",
+    "rollup-plugin-typescript-paths": "^1.5.0",
     "semantic-release": "^24.0.0",
     "storybook": "^8.2.6",
     "typescript": "^5.2.2",
     "typescript-eslint": "^8.0.0",
     "vite": "^5.3.4"
   },
-  "name": "haibazo-ui",
+  "exports": {
+    ".": {
+      "import": "./dist/main.es.js",
+      "require": "./dist/main.cjs.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/main.cjs.js",
+  "module": "./dist/main.es.js",
+  "name": "@haibazo/haibazo-ui",
   "private": true,
   "scripts": {
     "build": "tsc -b && vite build",
@@ -49,5 +63,6 @@
     "storybook": "storybook dev -p 6006"
   },
   "type": "module",
+  "typings": "./dist/main.d.ts",
   "version": "0.0.0"
 }

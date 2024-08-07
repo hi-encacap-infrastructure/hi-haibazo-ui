@@ -13,6 +13,11 @@ default:
       - node_modules/
   before_script:
     - bun install
+    - |
+      {
+        echo "@${CI_PROJECT_ROOT_NAMESPACE}:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
+        echo "${CI_API_V4_URL#https?}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=\${CI_JOB_TOKEN}"
+      } | tee -a .npmrc
 
 build-storybook:
   stage: build
@@ -39,22 +44,22 @@ release:
     - apt-get update && apt-get install -y git
     - bunx semantic-release
 
-deploy:
+publish-storybook:
   stage: deploy
-  needs: ["build-storybook"]
+  needs: ['build-storybook']
   image:
     name: amazon/aws-cli:latest
     entrypoint:
-      - "/usr/bin/env"
+      - '/usr/bin/env'
   rules:
     - if: $CI_COMMIT_TAG
   cache: []
   before_script:
-    - ""
+    - ''
   environment:
     name: development
   variables:
-    AWS_S3_BUCKET_NAME: "$AWS_S3_BUCKET_NAME"
+    AWS_S3_BUCKET_NAME: '$AWS_S3_BUCKET_NAME'
   script:
     # If have a tag, deploy to a specific folder
     # - aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME/storybook/$CI_ENVIRONMENT_NAME --delete
@@ -68,3 +73,15 @@ deploy:
       fi
     - if [ -n "$CI_COMMIT_TAG" ]; then aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME/storybook/$CI_COMMIT_TAG --delete; fi
     - if [ -n "$CI_ENVIRONMENT_NAME_BY_TAG" ]; then aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME/storybook/$CI_ENVIRONMENT_NAME_BY_TAG --delete; fi
+
+publish-npm:
+  stage: deploy
+  needs: ['release']
+  image: imbios/bun-node:latest-20-slim
+  rules:
+    - if: $CI_COMMIT_TAG
+  cache: []
+  before_script:
+    - ''
+  script:
+    - npm publish
