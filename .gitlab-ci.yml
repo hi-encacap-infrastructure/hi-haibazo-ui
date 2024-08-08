@@ -13,7 +13,6 @@ default:
       - node_modules/
   before_script:
     - corepack enable
-    - yarn install
 
 build-storybook:
   stage: build
@@ -23,6 +22,7 @@ build-storybook:
     - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_TAG
   script:
+    - yarn install
     - yarn run build-storybook
   artifacts:
     paths:
@@ -37,6 +37,7 @@ build-package:
     - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_TAG
   script:
+    - yarn install
     - yarn run build
   artifacts:
     paths:
