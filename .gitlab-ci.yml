@@ -56,8 +56,9 @@ release:
     - if: $CI_COMMIT_BRANCH == "staging" && $CI_PIPELINE_SOURCE == "push"
     - if: $CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "push"
   script:
-    - apk add --no-cache git
-    - npx semantic-release
+    - echo '${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/'
+    # - apk add --no-cache git
+    # - npx semantic-release
 
 publish-storybook:
   stage: deploy
