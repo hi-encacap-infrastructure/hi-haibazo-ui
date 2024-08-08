@@ -52,7 +52,7 @@
   ],
   "main": "./dist/main.cjs",
   "module": "./dist/main.js",
-  "name": "@hi-encacap-haibazo/haibazo-ui",
+  "name": "@haibazo-infrastructure/haibazo-ui",
   "scripts": {
     "build": "tsc -b && vite build",
     "build-storybook": "storybook build",
