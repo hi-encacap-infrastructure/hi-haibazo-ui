@@ -13,8 +13,9 @@ export default defineConfig({
       fileName: 'main',
       formats: ['es', 'cjs'],
     },
+    sourcemap: true,
     rollupOptions: {
-      external: [],
+      external: ['react', 'react-dom'],
       plugins: [
         typescriptPaths({
           preserveExtensions: true,
