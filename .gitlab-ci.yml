@@ -50,7 +50,7 @@ release:
     - if: $CI_COMMIT_BRANCH == "staging" && $CI_PIPELINE_SOURCE == "push"
     - if: $CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "push"
   script:
-    - apt-get update && apt-get install -y git
+    - apk add --no-cache git
     - npx semantic-release
 
 publish-storybook:
