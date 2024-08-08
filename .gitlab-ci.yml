@@ -6,8 +6,10 @@ stages:
 
 default:
   cache:
-    key:
-      prefix: $CI_COMMIT_REF_SLUG
+    key: node_moudles-${CI_COMMIT_REF_SLUG}
+    fallback_keys:
+      - node_modules-$CI_DEFAULT_BRANCH
+      - node_moudles-default
     paths:
       - node_modules/
   before_script:
