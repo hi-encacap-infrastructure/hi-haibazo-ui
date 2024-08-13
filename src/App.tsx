@@ -1,8 +1,9 @@
 import { memo } from 'react';
-import { Button } from './components/Button';
+
+import { HBZ0000 } from '@pages/HBZ0000';
 
 const AppComponent = () => {
-  return <Button label="Hello from HAIBAZO ^_^" />;
+  return <HBZ0000 />;
 };
 
 export const App = memo(AppComponent);
