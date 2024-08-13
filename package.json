@@ -35,6 +35,7 @@
     "sass-embedded": "^1.77.8",
     "semantic-release": "^24.0.0",
     "storybook": "^8.2.6",
+    "storycap": "^5.0.0",
     "stylelint": "^16.8.1",
     "stylelint-config-standard-scss": "^13.1.0",
     "typescript": "^5.5.4",
@@ -55,17 +56,17 @@
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.es.js",
   "name": "@haibazo-infrastructure/haibazo-ui",
+  "packageManager": "yarn@4.4.0",
   "scripts": {
     "build": "tsc --project tsconfig.lib.json && vite build",
     "build-storybook": "storybook build",
     "dev": "vite",
     "lint": "eslint --report-unused-disable-directives --max-warnings 0",
+    "init:husky": "npx husky",
     "preview": "vite preview",
-    "storybook": "storybook dev -p 6006",
-    "postinstall": "npx --no-install husky"
+    "storybook": "storybook dev -p 6006"
   },
   "type": "module",
   "typings": "./dist/main.d.ts",
-  "version": "v1.0.0-develop.17",
-  "packageManager": "yarn@4.4.0"
+  "version": "v1.0.0-develop.17"
 }
