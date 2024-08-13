@@ -58,7 +58,8 @@
     "dev": "vite",
     "lint": "eslint --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "storybook": "storybook dev -p 6006"
+    "storybook": "storybook dev -p 6006",
+    "postinstall": "npx --no-install husky"
   },
   "type": "module",
   "typings": "./dist/main.d.ts",
