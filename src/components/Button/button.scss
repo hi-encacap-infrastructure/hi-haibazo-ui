@@ -1,0 +1,36 @@
+@import '../../styles/variables.scss';
+
+.storybook-button {
+  font-weight: 700;
+  border: 0;
+  border-radius: 3em;
+  cursor: pointer;
+  display: inline-block;
+  line-height: $line-height-none;
+
+  &--primary {
+    color: $color-white;
+    background-color: $color-primary;
+  }
+
+  &--secondary {
+    color: $color-dark-gray;
+    background-color: $color-transparent;
+    box-shadow: $color-black-opacity-15 0px 0px 0px 1px inset;
+  }
+
+  &--small {
+    font-size: $font-size-extra-small;
+    padding: 10px 16px;
+  }
+
+  &--medium {
+    font-size: $font-size-small;
+    padding: 10px 20px;
+  }
+
+  &--large {
+    font-size: $font-size-base;
+    padding: 12px 24px;
+  }
+}

@@ -1,13 +1,14 @@
 import pluginCspellConfigs from '@cspell/eslint-plugin/configs';
 import { fixupPluginRules } from '@eslint/compat';
 import pluginJs from '@eslint/js';
+import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
 import pluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import pluginReact from 'eslint-plugin-react';
 import pluginReactHooks from 'eslint-plugin-react-hooks';
 import pluginSonarjs from 'eslint-plugin-sonarjs';
 import pluginStorybook from 'eslint-plugin-storybook';
 import globals from 'globals';
-import tsEslint from 'typescript-eslint';
+import pluginTs from 'typescript-eslint';
 
 export default [
   {
@@ -33,6 +34,11 @@ export default [
     },
   },
   {
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -41,14 +47,15 @@ export default [
     },
   },
   {
-    ignores: ['dist', 'node_modules', 'storybook-static', '!.storybook'],
+    ignores: ['dist', 'node_modules', 'storybook-static', '!.storybook', '.yarn'],
   },
-  ...tsEslint.configs.recommended,
-  ...pluginStorybook.configs['flat/recommended'],
+  pluginJsxA11y.flatConfigs.recommended,
   pluginReact.configs.flat.recommended,
   pluginReact.configs.flat['jsx-runtime'],
   pluginSonarjs.configs.recommended,
   pluginCspellConfigs.recommended,
   pluginJs.configs.recommended,
+  ...pluginStorybook.configs['flat/recommended'],
+  ...pluginTs.configs.recommended,
   pluginPrettierRecommended,
 ];

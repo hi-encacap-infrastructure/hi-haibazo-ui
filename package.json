@@ -10,9 +10,6 @@
     "@cspell/eslint-plugin": "^8.13.1",
     "@eslint/compat": "^1.1.1",
     "@eslint/js": "^9.8.0",
-    "@rollup/plugin-typescript": "^11.1.6",
-    "@semantic-release/gitlab": "^13.2.1",
-    "@semantic-release/npm": "^12.0.1",
     "@storybook/addon-essentials": "^8.2.6",
     "@storybook/addon-interactions": "^8.2.6",
     "@storybook/addon-links": "^8.2.6",
@@ -26,6 +23,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "eslint": "9.x",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-jsx-a11y": "^6.9.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.2",
@@ -34,12 +32,13 @@
     "eslint-plugin-storybook": "0.9.0--canary.156.ed236ca.0",
     "globals": "^15.9.0",
     "lint-staged": "^15.2.8",
-    "rollup-plugin-typescript-paths": "^1.5.0",
+    "sass-embedded": "^1.77.8",
     "semantic-release": "^24.0.0",
     "storybook": "^8.2.6",
-    "typescript": "^5.2.2",
+    "typescript": "^5.5.4",
     "typescript-eslint": "^8.0.0",
-    "vite": "^5.3.4"
+    "vite": "^5.3.4",
+    "vite-plugin-dts": "^4.0.2"
   },
   "exports": {
     ".": {
@@ -50,11 +49,11 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/main.cjs",
-  "module": "./dist/main.js",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
   "name": "@haibazo-infrastructure/haibazo-ui",
   "scripts": {
-    "build": "tsc -b && vite build",
+    "build": "tsc --project tsconfig.lib.json && vite build",
     "build-storybook": "storybook build",
     "dev": "vite",
     "lint": "eslint --report-unused-disable-directives --max-warnings 0",
@@ -63,5 +62,6 @@
   },
   "type": "module",
   "typings": "./dist/main.d.ts",
-  "version": "v1.0.0-develop.17"
+  "version": "v1.0.0-develop.17",
+  "packageManager": "yarn@4.4.0"
 }

@@ -1,0 +1,21 @@
+$container-max-width-pc: 750px;
+$container-min-width-sp: 320px;
+
+$font-text: 'Noto Sans JP', sans-serif;
+$font-size-base: 1rem;
+$font-size-small: 0.875rem; // 14px
+$font-size-extra-small: 0.75rem; // 12px
+
+$base-font-size-pc: $font-size-base;
+$base-font-size-sp: $font-size-small;
+
+$color-primary: #1ea7fd;
+$color-dark-gray: #333;
+$color-white: #fff;
+$color-black: #000;
+$color-black-opacity-15: rgba($color-black, 0.15);
+$color-transparent: transparent;
+
+$line-height-base: 1.5;
+$line-height-heading: 1.2;
+$line-height-none: 1;

@@ -1,31 +1,34 @@
-import typescript from '@rollup/plugin-typescript';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import { typescriptPaths } from 'rollup-plugin-typescript-paths';
 import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    dts({
+      insertTypesEntry: true,
+      tsconfigPath: './tsconfig.lib.json',
+    }),
+  ],
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'lib/main.ts'),
-      fileName: 'main',
+      entry: path.resolve(__dirname, 'lib/index.ts'),
       formats: ['es', 'cjs'],
+      fileName: (format) => `index.${format}.js`,
     },
     sourcemap: true,
+    assetsDir: './src/assets',
+    copyPublicDir: false,
     rollupOptions: {
       external: ['react', 'react-dom'],
-      plugins: [
-        typescriptPaths({
-          preserveExtensions: true,
-        }),
-        typescript({
-          sourceMap: true,
-          declaration: true,
-          outDir: 'dist',
-        }),
-      ],
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+        },
+      },
     },
   },
 });
