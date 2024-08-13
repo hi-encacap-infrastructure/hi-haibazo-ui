@@ -32,6 +32,7 @@
     "eslint-plugin-storybook": "0.9.0--canary.156.ed236ca.0",
     "globals": "^15.9.0",
     "lint-staged": "^15.2.8",
+    "puppeteer": "^23.0.2",
     "sass-embedded": "^1.77.8",
     "semantic-release": "^24.0.0",
     "storybook": "^8.2.6",
@@ -64,7 +65,8 @@
     "lint": "eslint --report-unused-disable-directives --max-warnings 0",
     "init:husky": "npx husky",
     "preview": "vite preview",
-    "storybook": "storybook dev -p 6006"
+    "storybook": "storybook dev -p 6006",
+    "storybook:capture": "storycap --outDir .storybook/storycap http://localhost:6006"
   },
   "type": "module",
   "typings": "./dist/main.d.ts",
