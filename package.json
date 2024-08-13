@@ -62,11 +62,12 @@
     "build": "tsc --project tsconfig.lib.json && vite build",
     "build-storybook": "storybook build",
     "dev": "vite",
-    "lint": "eslint --report-unused-disable-directives --max-warnings 0",
     "init:husky": "npx husky",
+    "lint": "eslint --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "storybook:capture": "storycap http://localhost:6006"
+    "storybook:capture": "storycap http://localhost:6006",
+    "tsc": "tsc --noEmit"
   },
   "type": "module",
   "typings": "./dist/main.d.ts",

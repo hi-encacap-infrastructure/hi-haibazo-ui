@@ -23,8 +23,8 @@ test-develop-merge-request:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop" && $CI_PIPELINE_SOURCE == "merge_request_event"
   script:
     - echo "$CI_COMMIT_BRANCH" "$CI_PIPELINE_SOURCE"
-    - tsc --noEmit
     - yarn run lint
+    - yarn run tsc
 
 build-storybook:
   stage: build
