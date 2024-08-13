@@ -18,16 +18,18 @@ default:
 test-develop-merge-request:
   stage: test
   rules:
-    - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_MERGE_REQUEST_TITLE =~ /^Draft:/
+      when: never
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"
   script:
     - yarn run lint
+    - yarn run tsc
 
 build-storybook:
   stage: build
   rules:
     - if: $CI_MERGE_REQUEST_TITLE =~ /^Draft:/
       when: never
-    - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_TAG
   # variables:
   #   GIT_CLONE_PATH: '$CI_BUILDS_DIR/$CI_PROJECT_NAME/storybook-$CI_JOB_ID'
@@ -43,8 +45,8 @@ build-package:
   rules:
     - if: $CI_MERGE_REQUEST_TITLE =~ /^Draft:/
       when: never
-    - if: $CI_COMMIT_BRANCH == "develop" && $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_TAG
+      when: manual
   # variables:
   #   GIT_CLONE_PATH: '$CI_BUILDS_DIR/$CI_PROJECT_NAME/package-$CI_JOB_ID'
   script:
@@ -78,8 +80,6 @@ publish-storybook:
   cache: []
   before_script:
     - ''
-  environment:
-    name: development
   variables:
     AWS_S3_BUCKET_NAME: '$AWS_S3_BUCKET_NAME'
   script:
@@ -91,8 +91,8 @@ publish-storybook:
       else
         CI_ENVIRONMENT_NAME_BY_TAG="latest"
       fi
-    - if [ -n "$CI_COMMIT_TAG" ]; then aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME/storybook/$CI_COMMIT_TAG --delete; fi
-    - if [ -n "$CI_ENVIRONMENT_NAME_BY_TAG" ]; then aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME/storybook/$CI_ENVIRONMENT_NAME_BY_TAG --delete; fi
+    - if [ -n "$CI_COMMIT_TAG" ]; then aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME/$CI_PROJECT_NAME/storybook/$CI_COMMIT_TAG --delete; fi
+    - if [ -n "$CI_ENVIRONMENT_NAME_BY_TAG" ]; then aws s3 sync storybook-static s3://$AWS_S3_BUCKET_NAME/$CI_PROJECT_NAME/storybook/$CI_ENVIRONMENT_NAME_BY_TAG --delete; fi
 
 publish-package:
   stage: deploy
@@ -100,6 +100,7 @@ publish-package:
     - corepack enable
   rules:
     - if: $CI_COMMIT_TAG
+      when: manual
   cache: []
   script:
     - yarn publish --tag $CI_COMMIT_TAG
