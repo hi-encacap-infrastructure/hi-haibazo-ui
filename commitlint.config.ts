@@ -6,39 +6,27 @@ const Configuration: UserConfig = {
   rules: {
     'body-min-length': [RuleConfigSeverity.Error, 'always', 0],
     'type-enum': [RuleConfigSeverity.Error, 'always', ['ci', 'feat', 'fix', 'refactor', 'chore']],
-    // 'haibazo/commit-pattern': [RuleConfigSeverity.Error, 'always'],
-    // 'haibazo/ticket-prefix': [RuleConfigSeverity.Error, 'always', 'HBZ'],
+    'haibazo/ticket-prefix': [RuleConfigSeverity.Error, 'always', 'HBZ'],
   },
-  // parserPreset: {
-  //   parserOpts: {
-  //     headerPattern: /^\[(\w+)\] (\w+-\d+) (.+)$/,
-  //     headerCorrespondence: ['type', 'ticket', 'subject'],
-  //   },
-  // },
-  // plugins: [
-  //   {
-  //     rules: {
-  //       'haibazo/commit-pattern': ({ type, ticket, subject }) => {
-  //         if (!type || !ticket || !subject) {
-  //           return [false, 'commit message must follow the pattern `[type] ticket subject`'];
-  //         }
+  plugins: [
+    {
+      rules: {
+        'haibazo/ticket-prefix': ({ scope, type, subject }, _, ticketPrefix) => {
+          const errorMessage = `ticket must start with ${ticketPrefix}. Ex: ${type}(${ticketPrefix}-***): ${subject}`;
 
-  //         return [true];
-  //       },
-  //       'haibazo/ticket-prefix': ({ ticket }, _, ticketPrefix) => {
-  //         if (!ticket) {
-  //           return [false, 'ticket is required'];
-  //         }
+          if (!scope) {
+            return [false, errorMessage];
+          }
 
-  //         if (ticketPrefix && ticket.startsWith(ticketPrefix)) {
-  //           return [true];
-  //         }
+          if (ticketPrefix && scope.startsWith(ticketPrefix)) {
+            return [true];
+          }
 
-  //         return [false, `ticket must start with ${ticketPrefix}`];
-  //       },
-  //     },
-  //   },
-  // ],
+          return [false, errorMessage];
+        },
+      },
+    },
+  ],
 };
 
 export default Configuration;
