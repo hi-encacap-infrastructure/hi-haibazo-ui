@@ -66,7 +66,7 @@
     "init:husky": "npx husky",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "storybook:capture": "storycap --outDir .storybook/storycap http://localhost:6006"
+    "storybook:capture": "storycap http://localhost:6006"
   },
   "type": "module",
   "typings": "./dist/main.d.ts",

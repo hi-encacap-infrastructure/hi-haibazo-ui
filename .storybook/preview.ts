@@ -11,10 +11,6 @@ const preview: Preview = {
     },
     screenshot: {
       delay: 200,
-      viewports: {
-        desktop: '1920x1080',
-        mobile: '375x667',
-      },
     },
   },
   // @ts-expect-error - Storybook types are incorrect
